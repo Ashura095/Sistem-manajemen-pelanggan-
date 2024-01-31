@@ -1,9 +1,6 @@
 <?php
 // Koneksi ke database
-$conn = mysqli_connect("localhost", "root", "", "pemesanan_makanan");
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+include "koneksi.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Periksa apakah input ada sebelum mengakses nilainya
