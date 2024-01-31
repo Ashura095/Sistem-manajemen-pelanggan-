@@ -24,7 +24,7 @@ body {
 }
 
 .container label {
-    font-size: 23px;
+  font-size: 23px;
 }
 
 h2 {
@@ -36,6 +36,9 @@ form {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 20px;
+}
+#pengguna {
+  flex: content;
 }
 
 label {
@@ -85,18 +88,21 @@ a:hover {
 .daftar button {
   border-radius: 7px;
 }
+.daftar {
+  text-align: center;
+}
 
-
-.btnLogout, #btnAction {
-    background-color: #4caf50;
-    padding: 5px 10px;
-    border-radius: 10px;
+.btnLogout,
+#btnAction {
+  background-color: #4caf50;
+  padding: 5px 10px;
+  border-radius: 10px;
 }
 
 #btnAction a {
-    color: white;
+  color: white;
 }
 
 .btnLogout a {
-    color: #fff;
+  color: #fff;
 }

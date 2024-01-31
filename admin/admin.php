@@ -34,8 +34,8 @@ $result = mysqli_query($conn, $sql);
     <title>Admin Panel</title>
     <link rel="stylesheet" href="style_admin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Poor+Story&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Poor+Story&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -48,6 +48,10 @@ $result = mysqli_query($conn, $sql);
                     <th>Jumlah Makanan</th>
                     <th>Minuman</th>
                     <th>Jumlah Minuman</th>
+                    <th>Nama</th>
+                    <th>No Telp</th>
+                    <th>Alamat</th>
+                    <th>Waktu Pesan</th>
                     <th>Status Pengiriman</th>
                     <th>Aksi</th>
                 </tr>
@@ -62,12 +66,16 @@ $result = mysqli_query($conn, $sql);
                         echo "<td>" . $row['jumlah_makanan'] . "</td>";
                         echo "<td>" . $row['menu_minuman'] . "</td>";
                         echo "<td>" . $row['jumlah_minuman'] . "</td>";
+                        echo "<td>" . $row['nama_pengguna'] . "</td>"; // Menyesuaikan dengan kolom yang ada di tabel pesanan
+                        echo "<td>" . $row['nomor_telepon'] . "</td>"; // Menyesuaikan dengan kolom yang ada di tabel pesanan
+                        echo "<td>" . $row['alamat'] . "</td>"; // Menyesuaikan dengan kolom yang ada di tabel pesanan
+                        echo "<td>" . $row['waktu_pesan'] . "</td>"; // Menyesuaikan dengan kolom yang ada di tabel pesanan
                         echo "<td>" . $row['status_pengiriman'] . "</td>";
-                        echo "<td><button><a href='edit_order_admin.php?id=" . $row['id'] . "'>Edit</a> | <a href='delete_order_admin.php?id=" . $row['id'] . "'>Delete</a></td></button>";
+                        echo "<td><a href='edit_order_admin.php?id=" . $row['id'] . "'>Edit</a> | <a href='delete_order_admin.php?id=" . $row['id'] . "'>Delete</a></td>";
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='7'>Belum ada pesanan.</td></tr>";
+                    echo "<tr><td colspan='11'>Belum ada pesanan.</td></tr>";
                 }
                 ?>
             </tbody>

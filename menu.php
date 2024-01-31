@@ -1,30 +1,29 @@
 <?php
-session_start();
-if (!isset($_SESSION['name'])) {
-    header('Location: login.php');
-    exit();
-}
-
 // Koneksi ke database
 $conn = mysqli_connect("localhost", "root", "", "pemesanan_makanan");
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Proses penambahan pesanan
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Periksa apakah input ada sebelum mengakses nilainya
-    if (isset($_POST['menu_makanan'], $_POST['menu_minuman'], $_POST['jumlah_makanan'], $_POST['jumlah_minuman'])) {
+    if (isset($_POST['menu_makanan'], $_POST['menu_minuman'], $_POST['jumlah_makanan'], $_POST['jumlah_minuman'], $_POST['nama_pengguna'], $_POST['nomor_telepon'], $_POST['alamat'])) {
         // Validasi dan membersihkan input
-        $menu_makanan = mysqli_real_escape_string($conn, $_POST['menu_makanan']);
+         $menu_makanan = mysqli_real_escape_string($conn, $_POST['menu_makanan']);
         $menu_minuman = mysqli_real_escape_string($conn, $_POST['menu_minuman']);
         $jumlah_makanan = intval($_POST['jumlah_makanan']);
         $jumlah_minuman = intval($_POST['jumlah_minuman']);
+        $nama_pengguna = mysqli_real_escape_string($conn, $_POST['nama_pengguna']);
+        $nomor_telepon = mysqli_real_escape_string($conn, $_POST['nomor_telepon']);
+        $alamat = mysqli_real_escape_string($conn, $_POST['alamat']);
+        
+        // Periksa nilai $_POST['nama_pengguna']
+        echo "Nilai nama_pengguna: " . $nama_pengguna; // Tambahkan ini untuk memeriksa nilai
 
         // Prepared statement untuk menghindari SQL injection
-        $stmt = mysqli_prepare($conn, "INSERT INTO pesanan (menu_makanan, menu_minuman, jumlah_makanan, jumlah_minuman) 
-                                        VALUES (?, ?, ?, ?)");
-        mysqli_stmt_bind_param($stmt, 'ssii', $menu_makanan, $menu_minuman, $jumlah_makanan, $jumlah_minuman);
+        $stmt = mysqli_prepare($conn, "INSERT INTO pesanan (menu_makanan, menu_minuman, jumlah_makanan, jumlah_minuman, nama_pengguna, nomor_telepon, alamat) 
+                                        VALUES (?, ?, ?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($stmt, 'ssiiiss', $menu_makanan, $menu_minuman, $jumlah_makanan, $jumlah_minuman, $nama_pengguna, $nomor_telepon, $alamat);
 
         // Eksekusi prepared statement
         if (mysqli_stmt_execute($stmt)) {
@@ -41,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+
 // Tampilkan daftar pesanan
 $sql = "SELECT * FROM pesanan";
 $result = mysqli_query($conn, $sql);
@@ -56,7 +56,7 @@ $result = mysqli_query($conn, $sql);
 </head>
 <body>
     <div class="container">
-        <h2>Hallo, <?php echo $_SESSION['name']; ?>! Silakan pilih menu.</h2>
+        <h2>Silakan pilih menu dan masukkan informasi Anda.</h2>
         <form method="post">
             <label for="menu_makanan">Menu Makanan:</label>
             <select name="menu_makanan" id="menu_makanan">
@@ -74,7 +74,17 @@ $result = mysqli_query($conn, $sql);
             <input type="number" name="jumlah_makanan" id="jumlah_makanan" value="1"><br>
             <label for="jumlah_minuman">Jumlah Minuman:</label>
             <input type="number" name="jumlah_minuman" id="jumlah_minuman" value="1"><br>
+            <div id="pengguna">
+            <h3>Informasi Pemesanan</h3>
+            <label for="nama_pengguna">Nama:</label>
+            <input type="text" name="nama_pengguna" id="nama_pengguna" required><br>
+            <label for="nomor_telepon">Nomor Telepon:</label>
+            <input type="text" name="nomor_telepon" id="nomor_telepon" required><br>
+            <label for="alamat">Alamat:</label>
+            <input type="text" name="alamat" id="alamat" required><br>
             <input type="submit" name="submit" value="Pesan">
+            </div>
+            </div>
         </form>
         <br>
         <div class="daftar">
@@ -94,7 +104,6 @@ $result = mysqli_query($conn, $sql);
         ?>
         <br>
         </div>
-        <button class="btnLogout"><a href="logout.php">Logout</a></button>
     </div>
 </body>
 </html>
