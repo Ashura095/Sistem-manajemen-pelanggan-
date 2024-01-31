@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['name'])) {
     header('Location: login.php');
     exit();
 }
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Pesanan</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_menu.css">
 </head>
 <body>
     <div class="container">

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['name'])) {
     header('Location: login.php');
     exit();
 }
@@ -52,11 +52,11 @@ $result = mysqli_query($conn, $sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Pemesanan Makanan</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_edit.css">
 </head>
 <body>
     <div class="container">
-        <h2>Hallo, <?php echo $_SESSION['username']; ?>! Silakan pilih menu.</h2>
+        <h2>Hallo, <?php echo $_SESSION['name']; ?>! Silakan pilih menu.</h2>
         <form method="post">
             <label for="menu_makanan">Menu Makanan:</label>
             <select name="menu_makanan" id="menu_makanan">
@@ -77,6 +77,7 @@ $result = mysqli_query($conn, $sql);
             <input type="submit" name="submit" value="Pesan">
         </form>
         <br>
+        <div class="daftar">
         <h3>Daftar Pesanan:</h3>
         <?php
         if (mysqli_num_rows($result) > 0) {
@@ -84,15 +85,16 @@ $result = mysqli_query($conn, $sql);
                 echo "ID: " . $row['id'] . "<br>";
                 echo "Makanan: " . $row['menu_makanan'] . " x " . $row['jumlah_makanan'] . "<br>";
                 echo "Minuman: " . $row['menu_minuman'] . " x " . $row['jumlah_minuman'] . "<br>";
-                echo "<a href='edit_order.php?id=" . $row['id'] . "'>Edit</a> | ";
-                echo "<a href='delete_order.php?id=" . $row['id'] . "'>Delete</a><br>";
+                echo "<button id='btnAction'><a href='edit_order.php?id=" . $row['id'] . "'>Edit</a></button> |";
+                echo "<button id='btnAction'><a href='delete_order.php?id=" . $row['id'] . "'>Delete</a></button><br>";
             }
         } else {
             echo "Belum ada pesanan.";
         }
         ?>
         <br>
-        <a href="logout.php">Logout</a>
+        </div>
+        <button class="btnLogout"><a href="logout.php">Logout</a></button>
     </div>
 </body>
 </html>
