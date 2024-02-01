@@ -66,11 +66,11 @@ $result = mysqli_query($conn, $sql);
                         echo "<td>" . $row['jumlah_makanan'] . "</td>";
                         echo "<td>" . $row['menu_minuman'] . "</td>";
                         echo "<td>" . $row['jumlah_minuman'] . "</td>";
-                        echo "<td>" . $row['nama_pengguna'] . "</td>"; // Menyesuaikan dengan kolom yang ada di tabel pesanan
-                        echo "<td>" . $row['nomor_telepon'] . "</td>"; // Menyesuaikan dengan kolom yang ada di tabel pesanan
-                        echo "<td>" . $row['alamat'] . "</td>"; // Menyesuaikan dengan kolom yang ada di tabel pesanan
-                        echo "<td>" . $row['waktu_pesan'] . "</td>"; // Menyesuaikan dengan kolom yang ada di tabel pesanan
-                        echo "<td>" . $row['status_pengiriman'] . "</td>";
+                        echo "<td>" . $row['nama_pengguna'] . "</td>";
+                        echo "<td>" . $row['nomor_telepon'] . "</td>";
+                        echo "<td>" . $row['alamat'] . "</td>";
+                        echo "<td>" . $row['waktu_pesan'] . "</td>";
+                        echo "<td>" . ($row['status_pengiriman'] ? $row['status_pengiriman'] : 'Belum Terkirim') . "</td>"; // Status pengiriman default "Belum Terkirim"
                         echo "<td><a href='edit_order_admin.php?id=" . $row['id'] . "'>Edit</a> | <a href='delete_order_admin.php?id=" . $row['id'] . "'>Delete</a></td>";
                         echo "</tr>";
                     }

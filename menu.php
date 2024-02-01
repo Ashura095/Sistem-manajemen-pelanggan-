@@ -6,13 +6,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Periksa apakah input ada sebelum mengakses nilainya
     if (isset($_POST['menu_makanan'], $_POST['menu_minuman'], $_POST['jumlah_makanan'], $_POST['jumlah_minuman'], $_POST['nama_pengguna'], $_POST['nomor_telepon'], $_POST['alamat'])) {
         // Validasi dan membersihkan input
-         $menu_makanan = mysqli_real_escape_string($conn, $_POST['menu_makanan']);
-        $menu_minuman = mysqli_real_escape_string($conn, $_POST['menu_minuman']);
+          $menu_makanan = htmlspecialchars(mysqli_real_escape_string($conn, $_POST['menu_makanan']));
+        $menu_minuman = htmlspecialchars(mysqli_real_escape_string($conn, $_POST['menu_minuman']));
         $jumlah_makanan = intval($_POST['jumlah_makanan']);
         $jumlah_minuman = intval($_POST['jumlah_minuman']);
-        $nama_pengguna = mysqli_real_escape_string($conn, $_POST['nama_pengguna']);
-        $nomor_telepon = mysqli_real_escape_string($conn, $_POST['nomor_telepon']);
-        $alamat = mysqli_real_escape_string($conn, $_POST['alamat']);
+        $nama_pengguna = htmlspecialchars(mysqli_real_escape_string($conn, $_POST['nama_pengguna']));
+        $nomor_telepon = htmlspecialchars(mysqli_real_escape_string($conn, $_POST['nomor_telepon']));
+        $alamat = htmlspecialchars(mysqli_real_escape_string($conn, $_POST['alamat']));
         
         // Periksa nilai $_POST['nama_pengguna']
         echo "Nilai nama_pengguna: " . $nama_pengguna; // Tambahkan ini untuk memeriksa nilai
